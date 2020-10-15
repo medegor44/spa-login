@@ -7,8 +7,6 @@ import { LogInForm } from "./LogInForm.js"
 export const App = () => {
     const [{isLoading, isLoggedIn}, setRequestBody] = useApi();
 
-    console.log(`isLoading ${isLoading} isLoggedIn ${isLoggedIn}`);
-
     if (isLoggedIn)
         return (<LoggedIn></LoggedIn>);
     if (isLoading)

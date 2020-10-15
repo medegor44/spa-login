@@ -7,7 +7,6 @@ export const useApi = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        console.log(requestBody);
         if (!requestBody)
             return;
 
