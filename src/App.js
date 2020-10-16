@@ -1,15 +1,18 @@
-import React from "react"
+import React from "react";
 import { Loading } from "./Loading";
 import { LoggedIn } from "./LoggedIn";
-import { useApi } from "./hooks/UseApi.js"
-import { LogInForm } from "./LogInForm.js"
+import { useLogin } from "./hooks/UseLogin.js";
+import { LogInForm } from "./LogInForm.js";
 
 export const App = () => {
-    const [{isLoading, isLoggedIn}, setRequestBody] = useApi();
+  const { login, isLoginInProgress, isLoggedIn } = useLogin();
 
-    if (isLoggedIn)
-        return (<LoggedIn></LoggedIn>);
-    if (isLoading)
-        return (<Loading></Loading>);
-    return (<LogInForm setRequestBody={setRequestBody}></LogInForm>);
-}
+  const handleLogin = async (username, password) => {
+    await login(username, password);
+  };
+
+  if (isLoggedIn) return <LoggedIn />;
+  if (isLoginInProgress) return <Loading />;
+
+  return <LogInForm onLogin={handleLogin} />;
+};
