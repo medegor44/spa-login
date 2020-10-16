@@ -1,27 +1,27 @@
-import React from "react";
-import { useCredantials } from "./hooks/UseCredentials.js";
+import React, { useState } from "react";
 
-export const LogInForm = ({ setRequestBody }) => {
-    const [
-        username, 
-        password, 
-        handleUserChange, 
-        handlePassChange
-    ] = useCredantials();
+export const LogInForm = ({ onLogin }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const handleSubmit = (event) => {
-        const body = { username, password };
-        setRequestBody(JSON.stringify(body));
-        event.preventDefault();
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onLogin(username, password);
+  };
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={username} onChange={handleUserChange}></input>
-                <input type="text" value={password} onChange={handlePassChange} ></input>
-                <input type="submit"></input>
-            </form>
-        </div>
-    );
-}
+  return (
+    <div>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Login</button>
+    </div>
+  );
+};
